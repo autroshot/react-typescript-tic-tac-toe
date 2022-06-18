@@ -61,8 +61,8 @@ function Game() {
 
   const moves = history.map((step, move) => {
     const desc = move ? 
-      'Go to move #' + move : 
-      'Go to game start';
+      move + '턴으로 돌아가기': 
+      '게임 시작으로 돌아가기';
     
     return (
       <li key={move}>
@@ -73,9 +73,9 @@ function Game() {
 
   let status;
   if (winner) {
-    status = 'Winner: ' + winner;
+    status = '승자: ' + winner;
   } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+    status = '다음 플레이어: ' + (xIsNext ? 'X' : 'O');
   }
 
   const handleClick = (i: number) => {
@@ -116,4 +116,3 @@ function Game() {
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(<Game />);
-
