@@ -8,8 +8,14 @@ interface SquareProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-interface squaresObject {
+interface SquaresObject {
   squares: string[];
+  index: number;
+}
+
+interface LocationXY {
+  x: number;
+  y: number;
 }
 
 function Square(props: SquareProps) {
@@ -52,13 +58,13 @@ function Board(props: any) {
 }
 
 function Game() {
-  const [history, setHistory] = useState<squaresObject[]>([{ squares: Array(9).fill(null) }]);
+  const [history, setHistory] = useState<SquaresObject[]>([{ squares: Array(9).fill(null), index: -1 }]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXisNext] = useState(true);
 
   const current = history[stepNumber];
   const winner = calculateWinner(current.squares);
-
+  
   const moves = history.map((step, move) => {
     if (!move) {
       return (
@@ -67,9 +73,11 @@ function Game() {
         </li>
       )
     } else {
+      const locationXY = getLocation(step.index);
+      
       return (
         <li key={move}>
-          <button onClick={() => jumpTo(move)}>{move}턴으로 돌아가기</button><span>(2,3)</span>
+          <button onClick={() => jumpTo(move)}>{move}턴으로 돌아가기</button><span>({locationXY.x},{locationXY.y})</span>
         </li>
       )
     }
@@ -90,7 +98,7 @@ function Game() {
     if (calculateWinner(squares) || squares[i]) return;
 
     squares[i] = xIsNext ? 'X' : 'O';
-    setHistory(changedHistory.concat({squares: squares}));
+    setHistory(changedHistory.concat({ squares: squares, index: i }));
     setStepNumber(changedHistory.length);
     setXisNext(!xIsNext);
   }
@@ -120,3 +128,12 @@ function Game() {
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(<Game />);
+
+function getLocation(index: number): LocationXY {
+  let result = { x: 0, y: 0 };
+
+  result.x = Math.floor(index / 3);
+  result.y = index % 3;
+
+  return result;
+}
