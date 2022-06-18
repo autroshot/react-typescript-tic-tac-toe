@@ -60,15 +60,19 @@ function Game() {
   const winner = calculateWinner(current.squares);
 
   const moves = history.map((step, move) => {
-    const desc = move ? 
-      move + '턴으로 돌아가기': 
-      '게임 시작으로 돌아가기';
-    
-    return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>{desc}</button>
-      </li>
-    );
+    if (!move) {
+      return (
+        <li key={move}>
+          <button onClick={() => jumpTo(move)}>게임 시작으로 돌아가기</button>
+        </li>
+      )
+    } else {
+      return (
+        <li key={move}>
+          <button onClick={() => jumpTo(move)}>{move}턴으로 돌아가기</button><span>(2,3)</span>
+        </li>
+      )
+    }
   });
 
   let status;
