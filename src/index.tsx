@@ -73,7 +73,7 @@ function Game() {
         </li>
       )
     } else {
-      const locationXY = getLocation(step.index);
+      const locationXY = getLocationXY(step.index);
       
       return (
         <li key={move}>
@@ -129,7 +129,7 @@ function Game() {
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(<Game />);
 
-function getLocation(index: number): LocationXY {
+function getLocationXY(index: number): LocationXY {
   let result = { x: 0, y: 0 };
 
   result.x = Math.floor(index / 3);
