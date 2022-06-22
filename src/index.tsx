@@ -8,6 +8,11 @@ interface SquareProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
+interface BoardProps {
+  squares: string[]
+  onClick: (i: number) => void;
+}
+
 interface SquaresObject {
   squares: string[];
   index: number;
@@ -26,7 +31,7 @@ function Square(props: SquareProps) {
   );
 }
 
-function Board(props: any) {
+function Board(props: BoardProps) {
   const renderSquare = (i: number) => {
     return (
       <Square 
@@ -37,7 +42,7 @@ function Board(props: any) {
   }
 
   let boardRows: JSX.Element[] = [];
-  
+
   for (let i = 0; i < 3; i++) {
     let squares: JSX.Element[] = [];
     
