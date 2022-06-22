@@ -36,23 +36,21 @@ function Board(props: any) {
     );
   }
 
+  let boardRows: JSX.Element[] = [];
+  
+  for (let i = 0; i < 3; i++) {
+    let squares: JSX.Element[] = [];
+    
+    for (let j = i * 3; j < (i + 1) * 3; j++) {
+      squares.push(renderSquare(j));
+    }
+
+    boardRows.push(<div className="board-row">{squares}</div>);
+  }
+
   return (
     <div>
-      <div className="board-row">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
-      </div>
-      <div className="board-row">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className="board-row">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
-      </div>
+      {boardRows}
     </div>
   );
 }
