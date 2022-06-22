@@ -11,6 +11,14 @@ li {
   margin-bottom: 5px;
 }
 
+li.selected {
+  font-weight: bold;
+}
+
+li.selected button {
+  font-weight: bold;
+}
+
 li button {
   margin-right: 3px;
 }
