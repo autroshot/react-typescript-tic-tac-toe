@@ -16,7 +16,8 @@ function Game() {
     <div className="game">
       <div className="game-board">
         <Board 
-          squares={current.squares}
+          squares={current.squares} 
+          winSquares={winnerObject ? winnerObject.winSquares : []} 
           onClick={(i: number) => handleClick(i)}
         />
       </div>
@@ -67,7 +68,7 @@ function Board(props: BoardProps) {
       let squares: JSX.Element[] = [];
 
       for (let j = i * 3; j < (i + 1) * 3; j++) {
-        squares.push(renderSquare(j));
+        squares.push(renderSquare(j, props.winSquares.includes(j)));
       }
 
       result.push(<div className="board-row" key={i}>{squares}</div>);
@@ -76,11 +77,12 @@ function Board(props: BoardProps) {
     return result;
   }
 
-  function renderSquare(i: number) {
+  function renderSquare(i: number, isWinSquare: boolean) {
     return (
       <Square
-        value={props.squares[i]}
-        onClick={() => props.onClick(i)}
+        value={props.squares[i]} 
+        isWinSquare={isWinSquare} 
+        onClick={() => props.onClick(i)} 
         key={i}
       />
     );
@@ -88,8 +90,14 @@ function Board(props: BoardProps) {
 }
 
 function Square(props: SquareProps) {
+  let className = 'square';
+  
+  if (props.isWinSquare) {
+    className += ' win-square';
+  }
+
   return (
-    <button className="square" onClick={props.onClick}>
+    <button className={className} onClick={props.onClick}>
       {props.value}
     </button>
   );

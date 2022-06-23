@@ -1,10 +1,12 @@
 export interface SquareProps {
   value: string;
+  isWinSquare: boolean;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export interface BoardProps {
   squares: string[];
+  winSquares: number[];
   onClick: (i: number) => void;
 }
 

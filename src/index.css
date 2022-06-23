@@ -52,6 +52,10 @@ li button {
   width: 34px;
 }
 
+.win-square {
+  color: red;
+}
+
 .square:focus {
   outline: none;
 }
