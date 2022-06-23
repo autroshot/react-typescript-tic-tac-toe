@@ -4,8 +4,16 @@ export interface SquareProps {
 }
 
 export interface BoardProps {
-  squares: string[]
+  squares: string[];
   onClick: (i: number) => void;
+}
+
+export interface InfoProps {
+  history: SquaresObject[];
+  move: number;
+  winner: string | null;
+  xIsNext: boolean;
+  onjumpHistoryClick: (step: number) => void;
 }
 
 export interface SquaresObject {

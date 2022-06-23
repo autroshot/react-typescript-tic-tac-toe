@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { BoardProps, LocationXY, SquareProps, SquaresObject } from './interface'
+import { BoardProps, InfoProps, LocationXY, SquareProps, SquaresObject } from './interface'
 import { calculateWinner } from './calculateWinner';
 import './index.css';
 
@@ -20,11 +20,8 @@ function Game() {
           onClick={(i: number) => handleClick(i)}
         />
       </div>
-      <div className="game-info">
-        <div>{renderStatus()}</div>
-        <button className='moveOrderToggleButton'>기록 정렬 방식 변경</button>
-        <ol>{renderMoves(history, move)}</ol>
-      </div>
+      <Info history={history} move={move} winner={winner} xIsNext={xIsNext} 
+      onjumpHistoryClick={handleJumpHistoryClick}/>
     </div>
   );
 
@@ -45,51 +42,9 @@ function Game() {
     setXisNext(!xIsNext);
   }
 
-  function renderStatus() {
-    let result = '';
-
-    if (winner) {
-      result += '승자: ' + winner;
-    } else {
-      result += '다음 플레이어: ' + (xIsNext ? 'X' : 'O');
-    }
-
-    return result;
-  }
-
-  function renderMoves(history: SquaresObject[], currentMove: number) {
-    return history.map((squaresObject, move) => {
-      if (move === 0) {
-        return (
-          <li key={move}>
-            <button onClick={() => jumpTo(move)}>게임 시작으로 돌아가기</button>
-          </li>
-        );
-      } else {
-        const locationXY = getLocationXY(squaresObject.squareIndex);
-
-        return (
-          <li key={move} className={(move === currentMove) ? "selected" : ""}>
-            <button onClick={() => jumpTo(move)}>{move}턴으로 돌아가기</button>
-            <span>({locationXY.x},{locationXY.y})</span>
-          </li>
-        );
-      }
-    });
-  }
-
-  function jumpTo(step: number) {
+  function handleJumpHistoryClick(step: number) {
     setMove(step);
     setXisNext((step % 2) === 0);
-  }
-
-  function getLocationXY(index: number): LocationXY {
-    let result = { x: 0, y: 0 };
-  
-    result.x = Math.floor(index / 3);
-    result.y = index % 3;
-  
-    return result;
   }
 }
 
@@ -131,6 +86,58 @@ function Square(props: SquareProps) {
       {props.value}
     </button>
   );
+}
+
+function Info(props: InfoProps) {
+  return (
+    <div className="game-info">
+      <div>{renderStatus()}</div>
+      <button className='moveOrderToggleButton'>기록 정렬 방식 변경</button>
+      <ol>{renderMoves(props.history, props.move)}</ol>
+    </div>
+  )
+
+  function renderStatus() {
+    let result = '';
+
+    if (props.winner) {
+      result += '승자: ' + props.winner;
+    } else {
+      result += '다음 플레이어: ' + (props.xIsNext ? 'X' : 'O');
+    }
+
+    return result;
+  }
+
+  function renderMoves(history: SquaresObject[], currentMove: number) {
+    return history.map((squaresObject, move) => {
+      if (move === 0) {
+        return (
+          <li key={move}>
+            <button onClick={() => props.onjumpHistoryClick(move)}>게임 시작으로 돌아가기</button>
+          </li>
+        );
+      } else {
+        const locationXY = getLocationXY(squaresObject.squareIndex);
+
+        return (
+          <li key={move} className={(move === currentMove) ? "selected" : ""}>
+            <button onClick={() => props.onjumpHistoryClick(move)}>{move}턴으로 돌아가기</button>
+            <span>({locationXY.x},{locationXY.y})</span>
+          </li>
+        );
+      }
+    });
+  }
+
+  function getLocationXY(index: number): LocationXY {
+    let result = { x: 0, y: 0 };
+  
+    result.x = Math.floor(index / 3);
+    result.y = index % 3;
+  
+    return result;
+  }
 }
 
 // ========================================
