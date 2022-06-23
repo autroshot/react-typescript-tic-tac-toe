@@ -1,67 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import { BoardProps, LocationXY, SquareProps, SquaresObject } from './interface'
 import { calculateWinner } from './calculateWinner';
 import './index.css';
-
-interface SquareProps {
-  value: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-}
-
-interface BoardProps {
-  squares: string[]
-  onClick: (i: number) => void;
-}
-
-interface SquaresObject {
-  squares: string[];
-  index: number;
-}
-
-interface LocationXY {
-  x: number;
-  y: number;
-}
-
-function Square(props: SquareProps) {
-  return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
-  );
-}
-
-function Board(props: BoardProps) {
-  return (
-    <div>
-      {renderBoardRows()}
-    </div>
-  );
-  
-  function renderBoardRows() {
-    let result: JSX.Element[] = [];
-
-    for (let i = 0; i < 3; i++) {
-      let squares: JSX.Element[] = [];
-
-      for (let j = i * 3; j < (i + 1) * 3; j++) {
-        squares.push(renderSquare(j));
-      }
-
-      result.push(<div className="board-row">{squares}</div>);
-    }
-
-    return result;
-  }
-
-  function renderSquare(i: number) {
-    return (
-      <Square
-        value={props.squares[i]}
-        onClick={() => props.onClick(i)} />
-    );
-  }
-}
 
 function Game() {
   const [history, setHistory] = useState([createInitialSquaresObject()]);
@@ -140,6 +81,46 @@ function Game() {
     setStepNumber(step);
     setXisNext((step % 2) === 0);
   }
+}
+
+function Board(props: BoardProps) {
+  return (
+    <div>
+      {renderBoardRows()}
+    </div>
+  );
+  
+  function renderBoardRows() {
+    let result: JSX.Element[] = [];
+
+    for (let i = 0; i < 3; i++) {
+      let squares: JSX.Element[] = [];
+
+      for (let j = i * 3; j < (i + 1) * 3; j++) {
+        squares.push(renderSquare(j));
+      }
+
+      result.push(<div className="board-row">{squares}</div>);
+    }
+
+    return result;
+  }
+
+  function renderSquare(i: number) {
+    return (
+      <Square
+        value={props.squares[i]}
+        onClick={() => props.onClick(i)} />
+    );
+  }
+}
+
+function Square(props: SquareProps) {
+  return (
+    <button className="square" onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
 }
 
 // ========================================
