@@ -94,10 +94,18 @@ function Info(props: InfoProps) {
   return (
     <div className="game-info">
       <div>{renderStatus()}</div>
-      <button className='moveOrderToggleButton'>기록 정렬 방식 변경</button>
+      <button className='moveOrderToggle' onClick={handleMoveOrderToggleClick}>기록 정렬 방식 변경</button>
       <ol>{renderMoves(props.history, props.move)}</ol>
     </div>
   )
+
+  function handleMoveOrderToggleClick() {
+    if (moveOrder === MoveOrder.ascending) {
+      setMoveOrder(MoveOrder.descending);
+    } else {
+      setMoveOrder(MoveOrder.ascending);
+    }
+  }
 
   function renderStatus() {
     let result = '';
