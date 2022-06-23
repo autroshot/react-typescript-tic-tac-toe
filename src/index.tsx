@@ -81,6 +81,15 @@ function Game() {
     setStepNumber(step);
     setXisNext((step % 2) === 0);
   }
+
+  function getLocationXY(index: number): LocationXY {
+    let result = { x: 0, y: 0 };
+  
+    result.x = Math.floor(index / 3);
+    result.y = index % 3;
+  
+    return result;
+  }
 }
 
 function Board(props: BoardProps) {
@@ -127,12 +136,3 @@ function Square(props: SquareProps) {
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(<Game />);
-
-function getLocationXY(index: number): LocationXY {
-  let result = { x: 0, y: 0 };
-
-  result.x = Math.floor(index / 3);
-  result.y = index % 3;
-
-  return result;
-}
