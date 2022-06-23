@@ -64,7 +64,7 @@ function Board(props: BoardProps) {
 }
 
 function Game() {
-  const [history, setHistory] = useState<SquaresObject[]>([createInitialSquaresObject()]);
+  const [history, setHistory] = useState([createInitialSquaresObject()]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXisNext] = useState(true);
 
@@ -129,7 +129,7 @@ function Game() {
     </div>
   );
 
-  function createInitialSquaresObject() {
+  function createInitialSquaresObject(): SquaresObject {
     return { squares: Array(9).fill(null), index: -1 };
   }
 }
