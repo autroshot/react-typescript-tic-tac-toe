@@ -4,7 +4,11 @@ body {
 }
 
 ol, ul {
-  padding-left: 30px;
+  padding-left: 15px;
+}
+
+ol {
+  list-style-type: none;
 }
 
 li {
