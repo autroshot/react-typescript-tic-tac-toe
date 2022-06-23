@@ -10,7 +10,7 @@ export interface BoardProps {
 
 export interface SquaresObject {
   squares: string[];
-  index: number;
+  squareIndex: number;
 }
 
 export interface LocationXY {

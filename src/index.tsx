@@ -28,7 +28,7 @@ function Game() {
   );
 
   function createInitialSquaresObject(): SquaresObject {
-    return { squares: Array(9).fill(null), index: -1 };
+    return { squares: Array(9).fill(null), squareIndex: -1 };
   }
 
   function handleClick(i: number) {
@@ -39,7 +39,7 @@ function Game() {
     if (calculateWinner(squares) || squares[i]) return;
 
     squares[i] = xIsNext ? 'X' : 'O';
-    setHistory(changedHistory.concat({ squares: squares, index: i }));
+    setHistory(changedHistory.concat({ squares: squares, squareIndex: i }));
     setStepNumber(changedHistory.length);
     setXisNext(!xIsNext);
   }
@@ -65,7 +65,7 @@ function Game() {
           </li>
         );
       } else {
-        const locationXY = getLocationXY(step.index);
+        const locationXY = getLocationXY(step.squareIndex);
 
         return (
           <li key={move} className={(move === stepNumber) ? "selected" : ""}>
