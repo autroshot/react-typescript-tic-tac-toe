@@ -65,7 +65,7 @@ function Board(props: BoardProps) {
         squares.push(renderSquare(j));
       }
 
-      result.push(<div className="board-row">{squares}</div>);
+      result.push(<div className="board-row" key={i}>{squares}</div>);
     }
 
     return result;
@@ -75,7 +75,9 @@ function Board(props: BoardProps) {
     return (
       <Square
         value={props.squares[i]}
-        onClick={() => props.onClick(i)} />
+        onClick={() => props.onClick(i)}
+        key={i}
+      />
     );
   }
 }
