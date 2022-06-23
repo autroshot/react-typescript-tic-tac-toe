@@ -26,6 +26,11 @@ export interface LocationXY {
   y: number;
 }
 
+export interface WinnerObject {
+  winner: string;
+  winSquares: number[];
+}
+
 export enum MoveOrder {
   ascending = 'ascending',
   descending = 'descending',

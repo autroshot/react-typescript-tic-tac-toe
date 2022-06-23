@@ -1,4 +1,6 @@
-export function calculateWinner(squares: string[]) {
+import { WinnerObject } from './interface';
+
+export function calculateWinner(squares: string[]): WinnerObject | null {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -12,7 +14,7 @@ export function calculateWinner(squares: string[]) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return { winner: squares[a], winSquares: [a, b, c] };
     }
   }
   return null;

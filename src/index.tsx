@@ -10,7 +10,7 @@ function Game() {
   const [xIsNext, setXIsNext] = useState(true);
 
   const current = history[move];
-  const winner = calculateWinner(current.squares);
+  const winnerObject = calculateWinner(current.squares);
   
   return (
     <div className="game">
@@ -20,8 +20,13 @@ function Game() {
           onClick={(i: number) => handleClick(i)}
         />
       </div>
-      <Info history={history} move={move} winner={winner} xIsNext={xIsNext} 
-      onJumpHistoryClick={handleJumpHistoryClick}/>
+      <Info 
+        history={history} 
+        move={move} 
+        winner={winnerObject ? winnerObject.winner : null} 
+        xIsNext={xIsNext} 
+        onJumpHistoryClick={handleJumpHistoryClick}
+      />
     </div>
   );
 
