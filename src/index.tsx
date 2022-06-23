@@ -22,7 +22,7 @@ function Game() {
       </div>
       <div className="game-info">
         <div>{renderStatus()}</div>
-        <ol>{renderMoves()}</ol>
+        <ol>{renderMoves(history, stepNumber)}</ol>
       </div>
     </div>
   );
@@ -56,7 +56,7 @@ function Game() {
     return result;
   }
 
-  function renderMoves() {
+  function renderMoves(history: SquaresObject[], currentMove: number) {
     return history.map((squaresObject, move) => {
       if (move === 0) {
         return (
@@ -68,7 +68,7 @@ function Game() {
         const locationXY = getLocationXY(squaresObject.squareIndex);
 
         return (
-          <li key={move} className={(move === stepNumber) ? "selected" : ""}>
+          <li key={move} className={(move === currentMove) ? "selected" : ""}>
             <button onClick={() => jumpTo(move)}>{move}턴으로 돌아가기</button>
             <span>({locationXY.x},{locationXY.y})</span>
           </li>
