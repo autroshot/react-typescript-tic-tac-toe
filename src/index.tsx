@@ -71,30 +71,23 @@ function Game() {
   const current = history[stepNumber];
   const winner = calculateWinner(current.squares);
   
-  const moves = history.map((step, move) => {
-    if (!move) {
-      return (
-        <li key={move}>
-          <button onClick={() => jumpTo(move)}>게임 시작으로 돌아가기</button>
-        </li>
-      )
-    } else {
-      const locationXY = getLocationXY(step.index);
-      
-      return (
-        <li key={move} className={(move === stepNumber) ? "selected" : ""}>
-          <button onClick={() => jumpTo(move)}>{move}턴으로 돌아가기</button>
-          <span>({locationXY.x},{locationXY.y})</span>
-        </li>
-      )
-    }
-  });
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board 
+          squares={current.squares}
+          onClick={(i: number) => handleClick(i)}
+        />
+      </div>
+      <div className="game-info">
+        <div>{renderStatus()}</div>
+        <ol>{renderMoves()}</ol>
+      </div>
+    </div>
+  );
 
-  let status;
-  if (winner) {
-    status = '승자: ' + winner;
-  } else {
-    status = '다음 플레이어: ' + (xIsNext ? 'X' : 'O');
+  function createInitialSquaresObject(): SquaresObject {
+    return { squares: Array(9).fill(null), index: -1 };
   }
 
   function handleClick(i: number) {
@@ -110,28 +103,42 @@ function Game() {
     setXisNext(!xIsNext);
   }
 
+  function renderStatus() {
+    let result = '';
+
+    if (winner) {
+      result += '승자: ' + winner;
+    } else {
+      result += '다음 플레이어: ' + (xIsNext ? 'X' : 'O');
+    }
+
+    return result;
+  }
+
+  function renderMoves() {
+    return history.map((step, move) => {
+      if (!move) {
+        return (
+          <li key={move}>
+            <button onClick={() => jumpTo(move)}>게임 시작으로 돌아가기</button>
+          </li>
+        );
+      } else {
+        const locationXY = getLocationXY(step.index);
+
+        return (
+          <li key={move} className={(move === stepNumber) ? "selected" : ""}>
+            <button onClick={() => jumpTo(move)}>{move}턴으로 돌아가기</button>
+            <span>({locationXY.x},{locationXY.y})</span>
+          </li>
+        );
+      }
+    });
+  }
+
   function jumpTo(step: number) {
     setStepNumber(step);
     setXisNext((step % 2) === 0);
-  }
-
-  return (
-    <div className="game">
-      <div className="game-board">
-        <Board 
-          squares={current.squares}
-          onClick={(i: number) => handleClick(i)}
-        />
-      </div>
-      <div className="game-info">
-        <div>{status}</div>
-        <ol>{moves}</ol>
-      </div>
-    </div>
-  );
-
-  function createInitialSquaresObject(): SquaresObject {
-    return { squares: Array(9).fill(null), index: -1 };
   }
 }
 
