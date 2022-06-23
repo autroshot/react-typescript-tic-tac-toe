@@ -153,8 +153,8 @@ function Info(props: InfoProps) {
   function getLocationXY(index: number): LocationXY {
     let result = { x: 0, y: 0 };
   
-    result.x = Math.floor(index / 3);
-    result.y = index % 3;
+    result.x = Math.floor(index / 3) + 1;
+    result.y = index % 3 + 1;
   
     return result;
   }
