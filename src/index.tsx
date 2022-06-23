@@ -64,7 +64,7 @@ function Board(props: BoardProps) {
 }
 
 function Game() {
-  const [history, setHistory] = useState<SquaresObject[]>([{ squares: Array(9).fill(null), index: -1 }]);
+  const [history, setHistory] = useState<SquaresObject[]>([createInitialSquaresObject()]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXisNext] = useState(true);
 
@@ -96,7 +96,7 @@ function Game() {
     status = '다음 플레이어: ' + (xIsNext ? 'X' : 'O');
   }
 
-  const handleClick = (i: number) => {
+  function handleClick(i: number) {
     const changedHistory = history.slice(0, stepNumber + 1);
     const current = changedHistory[changedHistory.length - 1];
     const squares = [...current.squares];
@@ -128,6 +128,10 @@ function Game() {
       </div>
     </div>
   );
+
+  function createInitialSquaresObject() {
+    return { squares: Array(9).fill(null), index: -1 };
+  }
 }
 
 // ========================================
