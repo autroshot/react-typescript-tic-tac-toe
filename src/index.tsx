@@ -57,7 +57,7 @@ function Game() {
   }
 
   function renderMoves() {
-    return history.map((step, move) => {
+    return history.map((squaresObject, move) => {
       if (!move) {
         return (
           <li key={move}>
@@ -65,7 +65,7 @@ function Game() {
           </li>
         );
       } else {
-        const locationXY = getLocationXY(step.squareIndex);
+        const locationXY = getLocationXY(squaresObject.squareIndex);
 
         return (
           <li key={move} className={(move === stepNumber) ? "selected" : ""}>
