@@ -83,7 +83,8 @@ function Game() {
       
       return (
         <li key={move} className={(move === stepNumber) ? "selected" : ""}>
-          <button onClick={() => jumpTo(move)}>{move}턴으로 돌아가기</button><span>({locationXY.x},{locationXY.y})</span>
+          <button onClick={() => jumpTo(move)}>{move}턴으로 돌아가기</button>
+          <span>({locationXY.x},{locationXY.y})</span>
         </li>
       )
     }
