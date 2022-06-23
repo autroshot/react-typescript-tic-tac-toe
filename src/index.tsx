@@ -7,7 +7,7 @@ import './index.css';
 function Game() {
   const [history, setHistory] = useState([createInitialSquaresObject()]);
   const [move, setMove] = useState(0);
-  const [xIsNext, setXisNext] = useState(true);
+  const [xIsNext, setXIsNext] = useState(true);
 
   const current = history[move];
   const winner = calculateWinner(current.squares);
@@ -21,7 +21,7 @@ function Game() {
         />
       </div>
       <Info history={history} move={move} winner={winner} xIsNext={xIsNext} 
-      onjumpHistoryClick={handleJumpHistoryClick}/>
+      onJumpHistoryClick={handleJumpHistoryClick}/>
     </div>
   );
 
@@ -39,12 +39,12 @@ function Game() {
     squares[i] = xIsNext ? 'X' : 'O';
     setHistory(changedHistory.concat({ squares: squares, squareIndex: i }));
     setMove(changedHistory.length);
-    setXisNext(!xIsNext);
+    setXIsNext(!xIsNext);
   }
 
   function handleJumpHistoryClick(step: number) {
     setMove(step);
-    setXisNext((step % 2) === 0);
+    setXIsNext((step % 2) === 0);
   }
 }
 
@@ -114,7 +114,7 @@ function Info(props: InfoProps) {
       if (move === 0) {
         return (
           <li key={move}>
-            <button onClick={() => props.onjumpHistoryClick(move)}>게임 시작으로 돌아가기</button>
+            <button onClick={() => props.onJumpHistoryClick(move)}>게임 시작으로 돌아가기</button>
           </li>
         );
       } else {
@@ -122,7 +122,7 @@ function Info(props: InfoProps) {
 
         return (
           <li key={move} className={(move === currentMove) ? "selected" : ""}>
-            <button onClick={() => props.onjumpHistoryClick(move)}>{move}턴으로 돌아가기</button>
+            <button onClick={() => props.onJumpHistoryClick(move)}>{move}턴으로 돌아가기</button>
             <span>({locationXY.x},{locationXY.y})</span>
           </li>
         );

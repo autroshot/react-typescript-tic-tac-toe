@@ -13,7 +13,7 @@ export interface InfoProps {
   move: number;
   winner: string | null;
   xIsNext: boolean;
-  onjumpHistoryClick: (step: number) => void;
+  onJumpHistoryClick: (step: number) => void;
 }
 
 export interface SquaresObject {
