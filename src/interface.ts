@@ -25,3 +25,8 @@ export interface LocationXY {
   x: number;
   y: number;
 }
+
+export enum MoveOrder {
+  ascending = 'ascending',
+  descending = 'descending',
+}

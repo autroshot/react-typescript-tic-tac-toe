@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { BoardProps, InfoProps, LocationXY, SquareProps, SquaresObject } from './interface'
+import { BoardProps, InfoProps, LocationXY, SquareProps, SquaresObject, MoveOrder } from './interface'
 import { calculateWinner } from './calculateWinner';
 import './index.css';
 
@@ -89,6 +89,8 @@ function Square(props: SquareProps) {
 }
 
 function Info(props: InfoProps) {
+  const [moveOrder, setMoveOrder] = useState(MoveOrder.ascending);
+
   return (
     <div className="game-info">
       <div>{renderStatus()}</div>
