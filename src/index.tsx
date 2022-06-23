@@ -95,7 +95,7 @@ function Info(props: InfoProps) {
     <div className="game-info">
       <div>{renderStatus()}</div>
       <button className='moveOrderToggle' onClick={handleMoveOrderToggleClick}>기록 정렬 방식 변경</button>
-      <ol>{renderMoves(props.history, props.move)}</ol>
+      <ol>{renderMoves(props.history, props.move, moveOrder)}</ol>
     </div>
   )
 
@@ -119,8 +119,10 @@ function Info(props: InfoProps) {
     return result;
   }
 
-  function renderMoves(history: SquaresObject[], currentMove: number) {
-    return history.map((squaresObject, move) => {
+  function renderMoves(history: SquaresObject[], currentMove: number, moveOrder: MoveOrder) {
+    let result: JSX.Element[];
+
+    result = history.map((squaresObject, move) => {
       if (move === 0) {
         return (
           <li key={move}>
@@ -138,6 +140,12 @@ function Info(props: InfoProps) {
         );
       }
     });
+
+    if (moveOrder === MoveOrder.descending) {
+      result.reverse();
+    }
+
+    return result;
   }
 
   function getLocationXY(index: number): LocationXY {
