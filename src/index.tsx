@@ -58,7 +58,7 @@ function Game() {
 
   function renderMoves() {
     return history.map((squaresObject, move) => {
-      if (!move) {
+      if (move === 0) {
         return (
           <li key={move}>
             <button onClick={() => jumpTo(move)}>게임 시작으로 돌아가기</button>
