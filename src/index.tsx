@@ -22,6 +22,7 @@ function Game() {
       </div>
       <div className="game-info">
         <div>{renderStatus()}</div>
+        <button className='moveOrderToggleButton'>기록 정렬 방식 변경</button>
         <ol>{renderMoves(history, move)}</ol>
       </div>
     </div>

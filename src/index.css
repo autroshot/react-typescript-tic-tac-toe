@@ -68,3 +68,8 @@ li button {
 .game-info {
   margin-left: 20px;
 }
+
+.moveOrderToggleButton {
+  margin-left: 15px;
+  margin-top: 10px;
+}
