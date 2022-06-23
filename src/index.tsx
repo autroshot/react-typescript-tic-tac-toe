@@ -6,10 +6,10 @@ import './index.css';
 
 function Game() {
   const [history, setHistory] = useState([createInitialSquaresObject()]);
-  const [stepNumber, setStepNumber] = useState(0);
+  const [move, setMove] = useState(0);
   const [xIsNext, setXisNext] = useState(true);
 
-  const current = history[stepNumber];
+  const current = history[move];
   const winner = calculateWinner(current.squares);
   
   return (
@@ -22,7 +22,7 @@ function Game() {
       </div>
       <div className="game-info">
         <div>{renderStatus()}</div>
-        <ol>{renderMoves(history, stepNumber)}</ol>
+        <ol>{renderMoves(history, move)}</ol>
       </div>
     </div>
   );
@@ -32,7 +32,7 @@ function Game() {
   }
 
   function handleClick(i: number) {
-    const changedHistory = history.slice(0, stepNumber + 1);
+    const changedHistory = history.slice(0, move + 1);
     const current = changedHistory[changedHistory.length - 1];
     const squares = [...current.squares];
 
@@ -40,7 +40,7 @@ function Game() {
 
     squares[i] = xIsNext ? 'X' : 'O';
     setHistory(changedHistory.concat({ squares: squares, squareIndex: i }));
-    setStepNumber(changedHistory.length);
+    setMove(changedHistory.length);
     setXisNext(!xIsNext);
   }
 
@@ -78,7 +78,7 @@ function Game() {
   }
 
   function jumpTo(step: number) {
-    setStepNumber(step);
+    setMove(step);
     setXisNext((step % 2) === 0);
   }
 
