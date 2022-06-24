@@ -108,7 +108,7 @@ function Info(props: InfoProps) {
 
   return (
     <div className="game-info">
-      <div>{renderStatus()}</div>
+      <div>{renderStatus(props.move)}</div>
       <button className='moveOrderToggle' onClick={handleMoveOrderToggleClick}>기록 정렬 방식 변경</button>
       <ol>{renderMoves(props.history, props.move, moveOrder)}</ol>
     </div>
@@ -122,13 +122,15 @@ function Info(props: InfoProps) {
     }
   }
 
-  function renderStatus() {
+  function renderStatus(move: number) {
     let result = '';
 
     if (props.winner) {
       result += '승자: ' + props.winner;
-    } else {
+    } else if (move < 9) {
       result += '다음 플레이어: ' + (props.xIsNext ? 'X' : 'O');
+    } else {
+      result += '무승부!';
     }
 
     return result;
